@@ -1,0 +1,114 @@
+.create {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    padding: 1rem;
+  
+    @media screen and (min-width: 768px) {
+      flex-direction: row;
+    }
+  
+    .menu {
+      @media screen and (min-width: 768px) {
+        width: 70%;
+      }
+      .filter {
+        display: flex;
+        gap: 1rem;
+        margin: 1rem 0;
+        button {
+          padding: 8px 12px;
+        }
+      }
+  
+      .list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 20px;
+        .item {
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+          border-radius: 24px;
+          .image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 10px;
+          }
+  
+          .bottom {
+            margin-top: 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .price {
+              font-size: 1.5rem;
+            }
+            button {
+              padding: 12px 20px;
+              border-radius: 0.8rem;
+              background-color: #1c1c1c;
+              color: #ffffff;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  
+    .form {
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+      padding: 1rem;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        .title {
+          font-size: 1.5rem;
+        }
+      }
+      .input,
+      .cart {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        background-color: #f7f7f7;
+        border-radius: 16px;
+      }
+      .cartItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .quantity {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          font-weight: bold;
+          .number {
+            width: 24px;
+            text-align: center;
+          }
+          button {
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
+      @media screen and (min-width: 768px) {
+        width: 30%;
+      }
+    }
+  }
+  

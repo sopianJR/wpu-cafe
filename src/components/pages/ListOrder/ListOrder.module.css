@@ -1,0 +1,25 @@
+.order {
+    padding: 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.button {
+    display: flex;
+    gap: 10px;
+}
+
+.action {
+    display: flex;
+    gap: 10px;
+}
+
+.table {
+    width: 100%;
+}
+
