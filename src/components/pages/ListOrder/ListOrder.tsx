@@ -51,7 +51,7 @@ const ListOrder = () => {
 
     const handleLogout = () => {
         removeLocalStorage("auth");
-        return navigate("/login");
+        return navigate("/");
     };
 
     return (
