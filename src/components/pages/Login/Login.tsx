@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
-import { Form, Button, Container, Row, Col, Card, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Form, Button, Container, Row, Col, Card, Alert, Navbar, Nav} from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import { setLocalStorage } from '../../../utils/storage';
 import { login } from '../../../services/auth.service';
 
@@ -26,6 +26,23 @@ const Login = () => {
     };
 
     return (
+        <>
+        {/* Navbar Section */}
+        <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+            <Container>
+                <Navbar.Brand as={Link} to="/">WPU Cafe</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="ms-auto">
+                        <Nav.Link as={Link} to="/#menu">Menu</Nav.Link>
+                        <Nav.Link as={Link} to="/#reviews">Reviews</Nav.Link>
+                        <Nav.Link as={Link} to="/#about">About</Nav.Link>
+                        <Nav.Link as={Link} to="/#contact">Contact</Nav.Link>
+                        <Nav.Link as={Link} to="/">Kembali</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
         <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
             <Row className="w-100" style={{ maxWidth: '400px' }}>
                 <Col>
@@ -45,12 +62,18 @@ const Login = () => {
                                 <Button variant="primary" type="submit" className="w-100">
                                     Login
                                 </Button>
+                                
                             </Form>
+
+                            <div className="text-center mt-3">
+                                <Link to="/">Back to Home</Link>
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
         </Container>
+        </>
     );
 };
 
