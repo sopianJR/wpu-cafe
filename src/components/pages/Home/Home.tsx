@@ -141,7 +141,7 @@ const Home = () => {
                     <Container>
                         <h2 className="text-center mb-4">Contact Us</h2>
                         <p className="text-center">
-                            Email: contact@wpucafe.com | Phone: +123 456 7890
+                            Email: contact@friendzonecafe.com | Phone: +123 456 7890
                         </p>
                     </Container>
                 </div>

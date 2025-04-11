@@ -30,7 +30,7 @@ const Login = () => {
         {/* Navbar Section */}
         <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
             <Container>
-                <Navbar.Brand as={Link} to="/">WPU Cafe</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">FriendZone Cafe</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
