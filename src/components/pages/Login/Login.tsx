@@ -1,38 +1,57 @@
-import styles from './Login.module.css';
-import Input from '../../ui/Input';
-import Button from '../../ui/Button';
-import { FormEvent } from 'react';
-import { setLocalStorage } from '../../../utils/storage';
+import { FormEvent, useState } from 'react';
+import { Form, Button, Container, Row, Col, Card, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { setLocalStorage } from '../../../utils/storage';
 import { login } from '../../../services/auth.service';
 
 const Login = () => {
     const navigate = useNavigate();
-    const handleLogin = async (event: FormEvent) => {
+    const [error, setError] = useState<string | null>(null);
+
+    const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const form = event.target as HTMLFormElement;
+        const form = event.currentTarget;
         const payload = {
             email: form.email.value,
             password: form.password.value,
-
         };
-        const result = await login(payload);
-        setLocalStorage('auth', result.token);
 
-        return navigate('/orders');
+        try {
+            const result = await login(payload);
+            setLocalStorage('auth', result.token);
+            navigate('/orders');
+        } catch (err: any) {
+            setError('Login failed. Please check your credentials.');
+        }
     };
 
-
-    return <main className={styles.login}>
-        <div className={styles.card}>
-            <h1 className={styles.title}>Login</h1>
-            <form className={styles.form} onSubmit={handleLogin}>
-                <Input label="Email" type='email' name="email" id="email" placeholder="Insert Email" required />
-                <Input label="Password" type='password' name="password" id="password" placeholder="Insert Password" required />
-                <Button type="submit">Login</Button>
-            </form>
-        </div>
-    </main>
+    return (
+        <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+            <Row className="w-100" style={{ maxWidth: '400px' }}>
+                <Col>
+                    <Card>
+                        <Card.Body>
+                            <h2 className="text-center mb-4">Login</h2>
+                            {error && <Alert variant="danger">{error}</Alert>}
+                            <Form onSubmit={handleLogin}>
+                                <Form.Group className="mb-3" controlId="email">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="email" name="email" placeholder="Insert Email" required />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" name="password" placeholder="Insert Password" required />
+                                </Form.Group>
+                                <Button variant="primary" type="submit" className="w-100">
+                                    Login
+                                </Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
 };
 
 export default Login;
