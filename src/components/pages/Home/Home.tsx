@@ -12,15 +12,16 @@ const Home = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const search = searchParams.get('search') as string || '';
     const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+    const [page, setPage] = useState(1);
+    const pageSize = parseInt(searchParams.get('pageSize') || '6', 10);
 
     useEffect(() => {
         const fetchMenu = async () => {
-            const pageSize = parseInt(searchParams.get('pageSize') || '6', 10);
-            const result = await getMenus(search, searchParams.get('category') as string, pageSize);
+            const result = await getMenus(searchParams.get('category') as string, search, page, pageSize);
             setMenus(result.data);
         };
         fetchMenu();
-    }, [search, searchParams.get('category'), searchParams.get('pageSize')]);
+    }, [searchParams.get('category'), search, page, pageSize]);
 
     useEffect(() => {
         const fetchReview = async () => {
