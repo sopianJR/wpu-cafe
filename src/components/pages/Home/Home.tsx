@@ -50,7 +50,7 @@ const Home = () => {
             {/* Navbar Section */}
             <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
                 <Container>
-                    <Navbar.Brand as={Link} to="/">WPU Cafe</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/">FriendZone Cafe</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
@@ -67,7 +67,7 @@ const Home = () => {
             {/* Hero Section */}
             <Container fluid className="p-0">
                 <div className="bg-dark text-white text-center py-5">
-                    <h1>Welcome to WPU Cafe</h1>
+                    <h1>Welcome to FriendZone Cafe</h1>
                     <p className="lead">Delicious food, cozy atmosphere, and great service!</p>
                 </div>
 
@@ -130,7 +130,7 @@ const Home = () => {
                     <Container>
                         <h2 className="text-center mb-4">About Us</h2>
                         <p className="text-center">
-                            At WPU Cafe, we are passionate about serving the best coffee and food in town.
+                            At FriendZone Cafe, we are passionate about serving the best coffee and food in town.
                             Come and enjoy a relaxing atmosphere with your friends and family.
                         </p>
                     </Container>
@@ -148,7 +148,7 @@ const Home = () => {
 
                 {/* Footer */}
                 <footer className="bg-dark text-white text-center py-3">
-                    <p>&copy; 2025 WPU Cafe. All rights reserved.</p>
+                    <p>&copy; 2025 FriendZone Cafe. All rights reserved.</p>
                 </footer>
             </Container>
         </>
