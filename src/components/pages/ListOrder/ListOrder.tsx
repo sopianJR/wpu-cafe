@@ -19,34 +19,31 @@ import {
 } from "react-bootstrap";
 
 const ListOrder = () => {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState<IOrder[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("ALL");
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
-    const [refetchOrder, setRefetchOrder] = useState(true);
 
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchOrder = async () => {
-          const result = await getOrders(debouncedSearchTerm, statusFilter, page);
-          setOrders(result.data);
-          setTotalPage(result.metadata.totalPages || 1);
-          setRefetchOrder(false); 
+            const result = await getOrders(debouncedSearchTerm, statusFilter, page);
+            setOrders(result.data);
+            setTotalPage(result.metadata.totalPages || 1);
         };
-      
-        if (refetchOrder) {
-          fetchOrder();
-        }
-      }, [debouncedSearchTerm, statusFilter, page, refetchOrder]);
-      
-    
+
+        fetchOrder();
+    }, [debouncedSearchTerm, statusFilter, page]);
 
     const handleCompleteOrder = async (id: string) => {
         await updateOrder(id, { status: "COMPLETED" });
-        setRefetchOrder(true);
+        
+        const result = await getOrders(debouncedSearchTerm, statusFilter, page);
+        setOrders(result.data);
+        setTotalPage(result.metadata.totalPages || 1);
     };
 
     const handleLogout = () => {
@@ -78,13 +75,19 @@ const ListOrder = () => {
                                     type="text"
                                     placeholder="Search by customer name..."
                                     value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    onChange={(e) => {
+                                        setSearchTerm(e.target.value);
+                                        setPage(1);
+                                    }}
                                 />
                             </Col>
                             <Col md={4}>
                                 <Form.Select
                                     value={statusFilter}
-                                    onChange={(e) => setStatusFilter(e.target.value)}
+                                    onChange={(e) => {
+                                        setStatusFilter(e.target.value);
+                                        setPage(1);
+                                    }}
                                 >
                                     <option value="ALL">All</option>
                                     <option value="PROCESSING">Processing</option>
@@ -112,18 +115,20 @@ const ListOrder = () => {
                         </thead>
                         <tbody>
                             {orders.length > 0 ? (
-                                orders.map((order: IOrder, index: number) => (
+                                orders.map((order, index) => (
                                     <tr key={order.id}>
-                                        <td>{(page - 1) * 10 + index + 1}</td>
+                                        <td className="text-center">{(page - 1) * 10 + index + 1}</td>
                                         <td>{order.customer_name}</td>
-                                        <td>{order.table_number}</td>
-                                        <td>{order.total}</td>
+                                        <td className="text-center">{order.table_number}</td>
+                                        <td className="text-center">${order.total}</td>
                                         <td className="text-center">
-                                            <span className="text-capitalize" >
-                                                <Badge bg={order.status == "PROCESSING" ? "warning" : "success" } text={order.status === "PROCESSING" ? "dark" : undefined}>
+                                            <Badge
+                                                bg={order.status === "PROCESSING" ? "warning" : "success"}
+                                                text={order.status === "PROCESSING" ? "dark" : undefined}
+                                                className="text-capitalize"
+                                            >
                                                 {order.status.toLowerCase()}
-                                                </Badge>
-                                            </span>
+                                            </Badge>
                                         </td>
                                         <td>
                                             <Stack direction="horizontal" gap={2} className="justify-content-center">
